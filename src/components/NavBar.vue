@@ -1,15 +1,15 @@
 <template>
-  <div class="navbar grid grid-cols-2 gap-4 place-content-between p-10">
-    <div>
+  <div class="navbar grid grid-cols-2 p-5">
+    <div class="self-center">
       Jiyuuki
     </div>
-    <div>
+    <div class="self-center">
       <router-link
         :to="{ name: 'HomeView' }"
         ref="Home"
         class="p-5"
       >
-        Hone
+        Home
       </router-link>
       <router-link
         :to="{ name: 'WorkSpaceView' }"
@@ -36,5 +36,6 @@ export default {
 .navbar {
   background: #157e7e;
   color: #fff;
+  height: 125px;
 }
 </style>

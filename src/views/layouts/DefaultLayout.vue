@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <nav-bar />
-    <div class="flex flex-col m-10">
+    <div class="content flex flex-col m-10">
       <router-view />
     </div>
   </div>
@@ -25,5 +25,10 @@ export default {
   position: absolute;
   background: #fff;
   margin: 0px;
+}
+.main .content {
+  color: #20201e;
+  font-weight: 600;
+  font-size: 20px;
 }
 </style>

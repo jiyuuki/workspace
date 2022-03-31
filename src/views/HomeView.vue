@@ -6,26 +6,9 @@
 </template>
 
 <script>
-
 export default {
   name: 'HomeView',
 };
 </script>
 
-<style  scoped>
-.home h1, div {
-  color: #157e7e;
-  font-weight: 700;
-  font-size: 20px;
-}
-
-.card span {
-  font-size: 20px;
-  font-weight: 700;
-}
-.card p {
-  font-size: 20px;
-  font-weight: 500;
-  color: #0d4b4b;
-}
-</style>
+<style  scoped></style>

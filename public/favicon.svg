@@ -1,0 +1,31 @@
+<svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="32px" height="32px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<style type="text/css">
+	.isometric_een{fill:#F8F7C5;}
+	.isometric_twee{fill:#F5DF89;}
+	.isometric_vier{fill:#AD9A74;}
+	.isometric_twaalf{fill:#569080;}
+	.isometric_dertien{fill:#225B49;}
+	.st0{fill:#7BD6C4;}
+	.st1{fill:#F05A28;}
+	.st2{fill:#FFBB33;}
+	.st3{fill:#BE1E2D;}
+	.st4{fill:#F29227;}
+	.st5{fill:#FF7344;}
+	.st6{fill:#6B9086;}
+	.st7{fill:none;}
+	.st8{fill:#72C0AB;}
+	.st9{fill:#F2D76C;}
+	.st10{fill:#F28103;}
+	.st11{fill:#225B49;}
+</style>
+<g>
+	<path class="isometric_vier" d="M21.08,14.291c0-0.124,0,11.548,0,11.548L27,21.1v-9.987L21.08,14.291z"/>
+	<polygon class="isometric_twee" points="21.08,14.167 7.695,6.456 5,7.963 18.4,15.711 18.4,28 21.08,26.453 	"/>
+	<path class="isometric_een" d="M8.545,6.975l7.624-2.107L27,11.113l-5.92,3.178c-0.002-0.08,0.003-0.125,0-0.124L8.545,6.975z
+		 M5,7.963L5,7.963L5,7.963v12.301L18.4,28V15.711L5,7.963z"/>
+	<path class="isometric_dertien" d="M6.546,10.791v8.828l9.642,5.567C13.221,22.645,7.166,18.618,6.546,10.791z"/>
+	<path class="isometric_twaalf" d="M16.853,16.344L6.546,10.393v0.398c0.605,7.644,6.174,11.425,9.642,14.394l0.666,0.384V16.344z"
+		/>
+</g>
+</svg>

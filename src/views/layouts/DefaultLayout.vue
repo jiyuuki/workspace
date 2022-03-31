@@ -21,7 +21,9 @@ export default {
 
 <style>
 .main {
-  background: #ffffff;
+  height: 100%;
+  position: absolute;
+  background: #fff;
   margin: 0px;
 }
 </style>

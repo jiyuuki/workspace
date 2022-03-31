@@ -1,8 +1,10 @@
 <template>
-  <nav-bar />
-  <main>
-    <router-view />
-  </main>
+  <div class="main">
+    <nav-bar />
+    <div class="flex flex-col m-10">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -16,3 +18,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.main {
+  background: #ffffff;
+  margin: 0px;
+}
+</style>

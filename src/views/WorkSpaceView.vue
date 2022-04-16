@@ -1,16 +1,17 @@
 <template>
   <div class="workspace">
     <div
-      v-for="(column, index) in workspace"
-      :key="index"
+      v-for="column of workspace.columns"
+      :key="column"
       class="column"
     >
-      <pre>
-        {{ column }}
-      </pre>
-      <pre>
-        {{ index }}
-      </pre>
+      <div
+        v-for="task of column.tasks"
+        :key="task"
+        class="task"
+      >
+        {{ task }}
+      </div>
     </div>
   </div>
 </template>

@@ -1,16 +1,18 @@
 <template>
   <div class="workspace">
-    <div
-      v-for="column of workspace.columns"
-      :key="column"
-      class="column"
-    >
+    <div class="flex flex-row items-start">
       <div
-        v-for="task of column.tasks"
-        :key="task"
-        class="task"
+        v-for="column of workspace.columns"
+        :key="column"
+        class="column"
       >
-        {{ task }}
+        <div
+          v-for="task of column.tasks"
+          :key="task"
+          class="task"
+        >
+          {{ task }}
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +50,6 @@ export default {
 .task {
   @apply flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded no-underline;
   background: #EEEEEE;
-  color: #398AB9;
+  color: #525153;
 }
 </style>

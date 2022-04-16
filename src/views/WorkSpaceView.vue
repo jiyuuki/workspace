@@ -8,6 +8,9 @@
       <pre>
         {{ column }}
       </pre>
+      <pre>
+        {{ index }}
+      </pre>
     </div>
   </div>
 </template>

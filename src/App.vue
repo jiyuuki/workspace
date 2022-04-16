@@ -6,6 +6,7 @@
 html {
   min-height: 100%;
   position: relative;
+  background: #1C658C;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

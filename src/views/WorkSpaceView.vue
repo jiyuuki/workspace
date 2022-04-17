@@ -3,12 +3,12 @@
     <div class="flex flex-row items-start">
       <div
         v-for="column of workspace.columns"
-        :key="column"
+        :key="column.name"
         class="column"
       >
         <div
           v-for="task of column.tasks"
-          :key="task"
+          :key="task.id"
           class="task"
         >
           {{ task.id }}

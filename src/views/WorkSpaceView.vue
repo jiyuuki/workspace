@@ -11,7 +11,10 @@
           :key="task"
           class="task"
         >
-          {{ task }}
+          {{ task.id }}
+          {{ task.name }}
+          {{ task.description }}
+          {{ task.user }}
         </div>
       </div>
     </div>

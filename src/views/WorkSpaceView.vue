@@ -18,7 +18,7 @@
         </div>
       </div>
     </div> -->
-    <div class="flex flex-col items-start">
+    <div class="flex flex-row items-end">
       <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nulla, nam dolore dolorum officia illum error.</div>
       <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nulla, nam dolore dolorum officia illum error.</div>
       <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nulla, nam dolore dolorum officia illum error.</div>

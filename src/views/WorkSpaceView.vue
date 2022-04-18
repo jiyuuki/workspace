@@ -1,6 +1,6 @@
 <template>
   <div class="workspace">
-    <!-- <div class="flex flex-row items-start">
+    <div class="flex flex-row items-start">
       <div
         v-for="column of workspace.columns"
         :key="column.name"
@@ -17,11 +17,6 @@
           {{ task.user }}
         </div>
       </div>
-    </div> -->
-    <div class="flex flex-row items-end">
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nulla, nam dolore dolorum officia illum error.</div>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nulla, nam dolore dolorum officia illum error.</div>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nulla, nam dolore dolorum officia illum error.</div>
     </div>
   </div>
 </template>

@@ -28,23 +28,32 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="isTaskOpen"
+      class="task-bg pin absolute"
+    >
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 import { useStore } from 'vuex'
 import { computed } from 'vue'
-
+import { useRoute } from 'vue-router'
 export default {
   name: 'WorkSpaceView',
 
   setup() {
     const store = useStore()
+    const route = useRoute()
 
     const workspace = computed(() => store.getters['getWorkspace'])
 
+    const isTaskOpen = computed(() => route.name === 'task')
     return {
       workspace,
+      isTaskOpen
     }
   }
 }
@@ -64,5 +73,9 @@ export default {
   @apply flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded no-underline;
   background: #EEEEEE;
   color: #525153;
+}
+
+.task-bg {
+  background: rgba(0,0,0,0.5);
 }
 </style>

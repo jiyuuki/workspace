@@ -1,4 +1,4 @@
-import uuid from '@/helpers/utils.js'
+import { uuid } from '@/helpers/utils.js'
 
 export default {
   name: 'defaultWorkspace',

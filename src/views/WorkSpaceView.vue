@@ -1,6 +1,6 @@
 <template>
   <div class="workspace">
-    <div class="flex flex-cols items-start">
+    <!-- <div class="flex flex-cols items-start">
       <div>flex flex-cols</div>
       <div>flex flex-cols</div>
       <div>flex flex-cols</div>
@@ -14,7 +14,7 @@
       <div>flex flex-wrap</div>
       <div>flex flex-wrap</div>
       <div>flex flex-wrap</div>
-    </div>
+    </div> -->
     <div class="flex flex-row items-start">
       <div
         v-for="(column, $columnIndex) of workspace.columns"

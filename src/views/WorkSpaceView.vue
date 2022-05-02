@@ -50,10 +50,11 @@ export default {
 
     const workspace = computed(() => store.getters['getWorkspace'])
 
-    const isTaskOpen = computed(() => route.name === 'task')
+    const isTaskOpen = computed(() => route.name === 'TaskView')
+
     return {
       workspace,
-      isTaskOpen
+      isTaskOpen,
     }
   }
 }

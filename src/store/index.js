@@ -14,15 +14,7 @@ export default createStore({
       return state.workspace
     },
     getTask(state) {
-      return (id) => {
-        for (const column of state.workspace.columns) {
-          for (const task of column.tasks) {
-            if (task.id === id) {
-              return task
-            }
-          }
-        }
-      }
+      return state.workspace
     }
   },
   mutations: {},

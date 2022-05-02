@@ -16,7 +16,8 @@ const routes = [
         children: [
           {
             path: 'task/:id',
-            name: 'task',
+            name: 'TaskView',
+            params: true,
             component: TaskView
           }
         ]

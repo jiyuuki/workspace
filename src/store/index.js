@@ -7,21 +7,20 @@ console.log({ workspace })
 export default createStore({
   plugins: [saveStatePlugin],
   state: {
-    workspace: workspace
-  },
-  getters: {
-    getWorkspace(state) {
-      return state.workspace
-    },
-    getTask: (state) => (id) => {
-      console.log({ workspace: state.workspace })
-      state.workspace.columns.map((value, key) => {
-        console.log({ value, key })
-        return value.tasks.map(task => task.id === id)
-      })
-    }
+    workspace: workspace,
   },
   mutations: {},
-  actions: {},
+  actions: {
+    getTask: ({ commit, state }, payload) => {
+      for (const columns of state.workspace.columns) {
+        columns.tasks.find(task => task.id === payload)
+      }
+    }
+  },
+  getters: {
+    getWorkspace: (state) => {
+      return state.workspace
+    }
+  },
   modules: {},
 });

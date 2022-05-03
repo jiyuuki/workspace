@@ -3,13 +3,13 @@
     <div
       class="flex flex-col flex-grow items-start justify-between px-4"
     >
-      {{ task }}
+      test
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -17,13 +17,10 @@ export default {
 
   setup() {
     const store = useStore()
-    const task = computed(() => store.getters.getTask(12))
 
-    console.log({ task: task })
-
-    return {
-      task
-    }
+    onMounted(() => {
+      console.log({ task: store.dispatch('getTask', 12) })
+    })
   }
 }
 </script>

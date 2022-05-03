@@ -13,8 +13,12 @@ export default createStore({
     getWorkspace(state) {
       return state.workspace
     },
-    getTask(state) {
-      return state.workspace
+    getTask: (state) => (id) => {
+      console.log({ workspace: state.workspace })
+      state.workspace.columns.map((value, key) => {
+        console.log({ value, key })
+        return value.tasks.map(task => task.id === id)
+      })
     }
   },
   mutations: {},

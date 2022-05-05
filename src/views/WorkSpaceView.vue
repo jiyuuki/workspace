@@ -1,10 +1,10 @@
 <template>
-  <div class="workspace">
+  <div class="workspace p-4 bg-teal-dark h-full overflow-auto">
     <div class="flex flex-row items-start">
       <div
         v-for="(column, $columnIndex) of workspace.columns"
         :key="$columnIndex"
-        class="column"
+        class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
       >
         <div class="flex items-center mb-2 font-bold">
           {{ column.name }}
@@ -13,7 +13,7 @@
           <div
             v-for="(task, $taslIndex) of column.tasks"
             :key="$taslIndex"
-            class="task"
+            class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
           >
             <span class="w-full flex-no-shrink font-bold">
               {{ task.name }}
@@ -30,7 +30,7 @@
     </div>
     <div
       v-if="isTaskOpen"
-      class="task-bg pin absolute"
+      class="task-bg pin"
     >
       <router-view />
     </div>
@@ -62,21 +62,18 @@ export default {
 
 <style lang="css" scoped>
 .workspace {
-  @apply p-4 h-full overflow-auto;
   background: #1C658C;
 }
 .column {
-  @apply p-2 mr-4 text-left shadow rounded;
   background: #398AB9;
   color: #EEEEEE;
 }
 .task {
-  @apply flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded no-underline;
   background: #EEEEEE;
   color: #525153;
 }
-
 .task-bg {
+  position: absolute;
   background: rgba(0,0,0,0.5);
 }
 </style>

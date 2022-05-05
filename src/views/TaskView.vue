@@ -1,26 +1,37 @@
 <template>
   <div class="task-view">
     <div
+      v-if="task !== undefined"
       class="flex flex-col flex-grow items-start justify-between px-4"
     >
-      test
+      {{ task.name }} wewe
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
-
+import { useRoute } from 'vue-router'
 export default {
   name: 'TaskView',
 
   setup() {
     const store = useStore()
+    const route = useRoute()
+    const task = ref({})
 
     onMounted(() => {
-      console.log({ task: store.dispatch('getTask', 12) })
+      store.dispatch('getTask', route.params.id).then((response) => {
+        console.log({ response })
+        task.value = response
+      }).catch((error) => {
+        console.log({ error })
+      })
     })
+    return {
+      task,
+    }
   }
 }
 </script>

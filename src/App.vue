@@ -18,7 +18,4 @@ body, html {
   height: 100%;
 }
 
-.container {
-  @apply mx-auto;
-}
 </style>

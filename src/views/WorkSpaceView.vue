@@ -30,7 +30,7 @@
     </div>
     <div
       v-if="isTaskOpen"
-      class="task-bg pin relative bg-teal-dark h-full overflow-auto"
+      class="task-bg bg-teal-dark h-full overflow-auto relative"
     >
       <router-view />
     </div>

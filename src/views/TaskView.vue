@@ -4,7 +4,7 @@
       v-if="task !== undefined"
       class="flex flex-col flex-grow items-start justify-between px-4"
     >
-      {{ task.name }} wewe
+      {{ task.name }}
     </div>
     <div
       v-else
@@ -29,7 +29,6 @@ export default {
 
     onMounted(() => {
       store.dispatch('getTask', route.params.id).then((response) => {
-        console.log({ response })
         task.value = response
       }).catch((error) => {
         console.log({ error })

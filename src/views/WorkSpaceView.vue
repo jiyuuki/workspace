@@ -1,6 +1,6 @@
 <template>
-  <div class="workspace p-4 bg-teal-dark h-full overflow-auto">
-    <div class="flex flex-row items-start">
+  <div class="workspace bg-teal-dark h-full overflow-auto">
+    <div class="flex p-4 flex-row items-start absolute">
       <div
         v-for="(column, $columnIndex) of workspace.columns"
         :key="$columnIndex"
@@ -30,7 +30,7 @@
     </div>
     <div
       v-if="isTaskOpen"
-      class="task-bg pin"
+      class="task-bg pin relative bg-teal-dark h-full overflow-auto"
     >
       <router-view />
     </div>
@@ -73,7 +73,6 @@ export default {
   color: #525153;
 }
 .task-bg {
-  position: absolute;
   background: rgba(0,0,0,0.5);
 }
 </style>

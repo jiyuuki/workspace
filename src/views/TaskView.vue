@@ -6,6 +6,12 @@
     >
       {{ task.name }} wewe
     </div>
+    <div
+      v-else
+      class="px-4"
+    >
+      Task not found
+    </div>
   </div>
 </template>
 
@@ -39,6 +45,6 @@ export default {
 <style scoped>
 .task-view {
   max-width: 700px;
-  color: #fff
+  color: #525153
 }
 </style>

@@ -13,9 +13,9 @@ export default createStore({
     CURRENT_TASK: (state, currentTask) => {
       state.currentTask = currentTask
     },
-    ADD_TASK: (state, { newTask, taskList }) => {
-      taskList.push({
-        name: newTask,
+    ADD_TASK: (state, { name, tasks }) => {
+      tasks.push({
+        name,
         id: uuid(),
         description: ''
       })
@@ -36,9 +36,9 @@ export default createStore({
         return 'task not found'
       }
     },
-    addTask: ({ commit }, { newTask, taskList }) => {
+    addTask: ({ commit }, { name, tasks }) => {
       try {
-        commit('ADD_TASK', { newTask, taskList })
+        commit('ADD_TASK', { name, tasks })
       } catch {
         console.log('there\'s somthing wrong please try later')
       }

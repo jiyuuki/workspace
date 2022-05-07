@@ -78,10 +78,10 @@ export default {
       })
     }
 
-    const addTask = (event, taskList) => {
+    const addTask = (event, tasks) => {
       if (event.target.value.trim() === '') return
 
-      store.dispatch('addTask', { newTask: event.target.value, taskList }).then((response) => {
+      store.dispatch('addTask', { name: event.target.value, tasks }).then((response) => {
         event.target.value = ''
       })
     }

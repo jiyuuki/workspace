@@ -13,6 +13,7 @@
           <div
             v-for="(task, $taslIndex) of column.tasks"
             :key="$taslIndex"
+            @click="goToTask(task.id)"
             class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
           >
             <span class="w-full flex-no-shrink font-bold">
@@ -40,21 +41,29 @@
 <script>
 import { useStore } from 'vuex'
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 export default {
   name: 'WorkSpaceView',
 
   setup() {
     const store = useStore()
     const route = useRoute()
+    const router = useRouter()
 
     const workspace = computed(() => store.getters['getWorkspace'])
 
     const isTaskOpen = computed(() => route.name === 'TaskView')
 
+    const goToTask = (idTask) => {
+      router.push({
+        name: 'TaskView',
+        params: { id: idTask }
+      })
+    }
     return {
       workspace,
       isTaskOpen,
+      goToTask,
     }
   }
 }

@@ -13,7 +13,7 @@
           <div
             v-for="(task, $taslIndex) of column.tasks"
             :key="$taslIndex"
-            @click="goToTask(task)"
+            @click="openTask(task)"
             class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
           >
             <span class="w-full flex-no-shrink font-bold">
@@ -32,6 +32,7 @@
     <div
       v-if="isTaskOpen"
       class="task-bg bg-teal-dark h-full overflow-auto relative"
+      @click="closeTask"
     >
       <router-view />
     </div>
@@ -54,16 +55,24 @@ export default {
 
     const isTaskOpen = computed(() => route.name === 'TaskView')
 
-    const goToTask = (task) => {
+    const openTask = (task) => {
       router.push({
         name: 'TaskView',
         params: { id: task.id }
       })
     }
+
+    const closeTask = () => {
+      router.push({
+        name: 'WorkSpaceView'
+      })
+    }
+
     return {
       workspace,
       isTaskOpen,
-      goToTask,
+      openTask,
+      closeTask,
     }
   }
 }
@@ -80,6 +89,7 @@ export default {
 .task {
   background: #EEEEEE;
   color: #525153;
+  cursor: pointer;
 }
 .task-bg {
   background: rgba(0,0,0,0.5);

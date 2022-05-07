@@ -90,6 +90,8 @@ export default {
   background: #EEEEEE;
   color: #525153;
   cursor: pointer;
+  border-top: 6px solid #1c658c; /* TODO: add the border color according to task tag */
+  border-radius: 6px;
 }
 .task-bg {
   background: rgba(0,0,0,0.5);

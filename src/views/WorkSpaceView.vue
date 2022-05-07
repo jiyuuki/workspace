@@ -9,6 +9,7 @@
         <div class="flex items-center mb-2 font-bold">
           {{ column.name }}
         </div>
+
         <div class="list-reset">
           <div
             v-for="(task, $taslIndex) of column.tasks"
@@ -27,6 +28,14 @@
             </p>
           </div>
         </div>
+
+        <input
+          type="text"
+          class="add-task w-full block p-2 bg-transparent focus:outline-none placeholder-current"
+          placeholder="+ Add new task"
+          @keyup.enter="addTask($event, column.tasks)"
+        >
+
       </div>
     </div>
     <div
@@ -43,6 +52,7 @@
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
 export default {
   name: 'WorkSpaceView',
 
@@ -68,11 +78,20 @@ export default {
       })
     }
 
+    const addTask = (event, taskList) => {
+      if (event.target.value.trim() === '') return
+
+      store.dispatch('addTask', { newTask: event.target.value, taskList }).then((response) => {
+        event.target.value = ''
+      })
+    }
+
     return {
       workspace,
       isTaskOpen,
       openTask,
       closeTask,
+      addTask,
     }
   }
 }
@@ -82,10 +101,12 @@ export default {
 .workspace {
   background: #1C658C;
 }
+
 .column {
   background: #398AB9;
   color: #EEEEEE;
 }
+
 .task {
   background: #EEEEEE;
   color: #525153;
@@ -93,6 +114,11 @@ export default {
   border-top: 6px solid #1c658c; /* TODO: add the border color according to task tag */
   border-radius: 6px;
 }
+
+.add-task {
+  color: #c6eafd
+}
+
 .task-bg {
   background: rgba(0,0,0,0.5);
 }

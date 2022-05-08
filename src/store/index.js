@@ -19,6 +19,9 @@ export default createStore({
         id: uuid(),
         description: ''
       })
+    },
+    UPDATE_TASK: (state, { task, key, value }) => {
+      task[key] = value
     }
   },
   actions: {
@@ -39,6 +42,13 @@ export default createStore({
     addTask: ({ commit }, { name, tasks }) => {
       try {
         commit('ADD_TASK', { name, tasks })
+      } catch {
+        console.log('there\'s somthing wrong please try later')
+      }
+    },
+    updateTask: ({ commit }, { task, key, value }) => {
+      try {
+        commit('UPDATE_TASK', { task, key, value })
       } catch {
         console.log('there\'s somthing wrong please try later')
       }

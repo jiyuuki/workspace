@@ -17,9 +17,9 @@
           <div
             v-for="(task, $taskIndex) of column.tasks"
             :key="$taskIndex"
-            draggable="true"
             @dragstart="dragTask($event, $taskIndex, $columnIndex)"
             @click="openTask(task)"
+            draggable="true"
             class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
           >
             <span class="w-full flex-no-shrink font-bold">
@@ -92,8 +92,6 @@ export default {
     }
 
     const dragTask = (event, taskIndex, fromColumnIndex) => {
-      console.log({ event, taskIndex, fromColumnIndex })
-
       event.dataTransfer.effectAllowed = 'move'
       event.dataTransfer.dropEffect = 'move'
 

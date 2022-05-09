@@ -26,6 +26,12 @@ export default createStore({
     MOVE_TASK: (state, { taskIndex, fromTasks, toTasks }) => {
       const taskToMove = fromTasks.splice(taskIndex, 1)[0]
       toTasks.push(taskToMove)
+    },
+    MOVE_COLUMN: (state, { fromColumnIndex, toColumnIndex }) => {
+      const columns = state.workspace.columns
+
+      const columnToMove = columns.splice(fromColumnIndex, 1)[0]
+      columns.splice(toColumnIndex, 0, columnToMove)
     }
   },
   actions: {
@@ -62,6 +68,13 @@ export default createStore({
         commit('MOVE_TASK', { taskIndex, fromTasks, toTasks })
       } catch {
         console.log('ther\'s somthing wrong please try later')
+      }
+    },
+    moveColumn: ({ commit }, { fromColumnIndex, toColumnIndex }) => {
+      try {
+        commit('MOVE_COLUMN', { fromColumnIndex, toColumnIndex })
+      } catch {
+        console.log('there\'s somthing wrong try later')
       }
     }
   },

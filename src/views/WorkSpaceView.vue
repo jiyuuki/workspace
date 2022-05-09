@@ -4,9 +4,11 @@
       <div
         v-for="(column, $columnIndex) of workspace.columns"
         :key="$columnIndex"
-        @drop="dropTask($event, column.tasks)"
+        @drop="dropTaskorColumn($event, column.tasks, $columnIndex)"
         @dragover.prevent
         @dragenter.prevent
+        draggable="true"
+        @dragstart.self="dragColumn($event, $columnIndex)"
         class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
       >
         <div class="flex items-center mb-2 font-bold">
@@ -97,6 +99,24 @@ export default {
 
       event.dataTransfer.setData('task-index', taskIndex)
       event.dataTransfer.setData('from-column-index', fromColumnIndex)
+      event.dataTransfer.setData('type', 'task')
+    }
+
+    const dragColumn = (event, fromColumnIndex) => {
+      event.dataTransfer.effectAllowed = 'move'
+      event.dataTransfer.dropEffect = 'move'
+
+      event.dataTransfer.setData('from-column-index', fromColumnIndex)
+      event.dataTransfer.setData('type', 'column')
+    }
+
+    const dropTaskorColumn = (event, toTasks, toColumnIndex) => {
+      const type = event.dataTransfer.getData('type')
+      if (type === 'task') {
+        dropTask(event, toTasks)
+      } else {
+        dropColumn(event, toColumnIndex)
+      }
     }
 
     const dropTask = (event, toTasks) => {
@@ -104,7 +124,14 @@ export default {
       const fromColumnIndex = event.dataTransfer.getData('from-column-index')
       const fromTasks = workspace.value.columns[fromColumnIndex].tasks
       store.dispatch('moveTask', { taskIndex, fromTasks, toTasks }).then((response) => {
-        console.log('DRAG & DROP DONE')
+        console.log('TASK DRAG & DROP DONE')
+      })
+    }
+
+    const dropColumn = (event, toColumnIndex) => {
+      const fromColumnIndex = event.dataTransfer.getData('from-column-index')
+      store.dispatch('moveColumn', { fromColumnIndex, toColumnIndex }).then((response) => {
+        console.log('COLUMN DRAG & DROP DONE')
       })
     }
 
@@ -115,7 +142,10 @@ export default {
       closeTask,
       addTask,
       dragTask,
+      dragColumn,
       dropTask,
+      dropColumn,
+      dropTaskorColumn,
     }
   }
 }

@@ -4,6 +4,9 @@
       <div
         v-for="(column, $columnIndex) of workspace.columns"
         :key="$columnIndex"
+        @drop="dropTask($event, column.tasks)"
+        @dragover.prevent
+        @dragenter.prevent
         class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
       >
         <div class="flex items-center mb-2 font-bold">
@@ -12,8 +15,10 @@
 
         <div class="list-reset">
           <div
-            v-for="(task, $taslIndex) of column.tasks"
-            :key="$taslIndex"
+            v-for="(task, $taskIndex) of column.tasks"
+            :key="$taskIndex"
+            draggable="true"
+            @dragstart="dragTask($event, $taskIndex, $columnIndex)"
             @click="openTask(task)"
             class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
           >
@@ -86,12 +91,33 @@ export default {
       })
     }
 
+    const dragTask = (event, taskIndex, fromColumnIndex) => {
+      console.log({ event, taskIndex, fromColumnIndex })
+
+      event.dataTransfer.effectAllowed = 'move'
+      event.dataTransfer.dropEffect = 'move'
+
+      event.dataTransfer.setData('task-index', taskIndex)
+      event.dataTransfer.setData('from-column-index', fromColumnIndex)
+    }
+
+    const dropTask = (event, toTasks) => {
+      const taskIndex = event.dataTransfer.getData('task-index')
+      const fromColumnIndex = event.dataTransfer.getData('from-column-index')
+      const fromTasks = workspace.value.columns[fromColumnIndex].tasks
+      store.dispatch('moveTask', { taskIndex, fromTasks, toTasks }).then((response) => {
+        console.log('DRAG & DROP DONE')
+      })
+    }
+
     return {
       workspace,
       isTaskOpen,
       openTask,
       closeTask,
       addTask,
+      dragTask,
+      dropTask,
     }
   }
 }

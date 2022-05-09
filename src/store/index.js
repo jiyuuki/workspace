@@ -22,6 +22,10 @@ export default createStore({
     },
     UPDATE_TASK: (state, { task, key, value }) => {
       task[key] = value
+    },
+    MOVE_TASK: (state, { taskIndex, fromTasks, toTasks }) => {
+      const taskToMove = fromTasks.splice(taskIndex, 1)[0]
+      toTasks.push(taskToMove)
     }
   },
   actions: {
@@ -51,6 +55,13 @@ export default createStore({
         commit('UPDATE_TASK', { task, key, value })
       } catch {
         console.log('there\'s somthing wrong please try later')
+      }
+    },
+    moveTask: ({ commit }, { taskIndex, fromTasks, toTasks }) => {
+      try {
+        commit('MOVE_TASK', { taskIndex, fromTasks, toTasks })
+      } catch {
+        console.log('ther\'s somthing wrong please try later')
       }
     }
   },

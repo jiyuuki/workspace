@@ -20,6 +20,12 @@ export default createStore({
         description: ''
       })
     },
+    ADD_COLUMN: (state, name) => {
+      state.workspace.columns.push({
+        name,
+        tasks: []
+      })
+    },
     UPDATE_TASK: (state, { task, key, value }) => {
       task[key] = value
     },
@@ -52,6 +58,13 @@ export default createStore({
     addTask: ({ commit }, { name, tasks }) => {
       try {
         commit('ADD_TASK', { name, tasks })
+      } catch {
+        console.log('there\'s somthing wrong please try later')
+      }
+    },
+    addColumn: ({ commit }, name) => {
+      try {
+        commit('ADD_COLUMN', name)
       } catch {
         console.log('there\'s somthing wrong please try later')
       }

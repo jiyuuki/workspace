@@ -1,5 +1,5 @@
 <template>
-  <div class="workspace bg-teal-dark h-full overflow-auto">
+  <div class="workspace bg-teal-dark h-full">
     <div class="flex p-4 flex-row items-start absolute">
       <div
         v-for="(column, $columnIndex) of workspace.columns"
@@ -54,7 +54,16 @@
         >
 
       </div>
+      <div class="column flex rounded-md">
+        <input
+          type="text"
+          class="p-2 mr-2 flex-grow bg-transparent focus:outline-none placeholder-current"
+          placeholder="New Column Name"
+          @keyup.enter="addColumn($event)"
+        >
+      </div>
     </div>
+
     <div
       v-if="isTaskOpen"
       class="task-bg bg-teal-dark h-full overflow-auto relative"
@@ -99,6 +108,12 @@ export default {
       if (event.target.value.trim() === '') return
 
       store.dispatch('addTask', { name: event.target.value, tasks }).then((response) => {
+        event.target.value = ''
+      })
+    }
+
+    const addColumn = (event) => {
+      store.dispatch('addColumn', event.target.value).then((response) => {
         event.target.value = ''
       })
     }
@@ -151,6 +166,7 @@ export default {
       openTask,
       closeTask,
       addTask,
+      addColumn,
       dragTask,
       dragColumn,
       dropTask,

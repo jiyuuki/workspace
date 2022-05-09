@@ -4,11 +4,14 @@
       <div
         v-for="(column, $columnIndex) of workspace.columns"
         :key="$columnIndex"
-        @drop="dropTaskorColumn($event, column.tasks, $columnIndex)"
+
+        @drop="dropTaskorColumn($event, column.tasks, $columnIndex, $taskIndex)"
         @dragover.prevent
         @dragenter.prevent
-        draggable="true"
+
         @dragstart.self="dragColumn($event, $columnIndex)"
+        draggable="true"
+
         class="column bg-grey-light p-2 mr-4 text-left shadow rounded"
       >
         <div class="flex items-center mb-2 font-bold">
@@ -19,9 +22,16 @@
           <div
             v-for="(task, $taskIndex) of column.tasks"
             :key="$taskIndex"
-            @dragstart="dragTask($event, $taskIndex, $columnIndex)"
+
             @click="openTask(task)"
+
+            @dragstart="dragTask($event, $taskIndex, $columnIndex)"
             draggable="true"
+
+            @drop.stop="dropTaskorColumn($event, column.tasks, $columnIndex, $taskIndex)"
+            @dragover.prevent
+            @dragenter.prevent
+
             class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
           >
             <span class="w-full flex-no-shrink font-bold">
@@ -97,7 +107,7 @@ export default {
       event.dataTransfer.effectAllowed = 'move'
       event.dataTransfer.dropEffect = 'move'
 
-      event.dataTransfer.setData('task-index', taskIndex)
+      event.dataTransfer.setData('from-task-index', taskIndex)
       event.dataTransfer.setData('from-column-index', fromColumnIndex)
       event.dataTransfer.setData('type', 'task')
     }
@@ -110,20 +120,20 @@ export default {
       event.dataTransfer.setData('type', 'column')
     }
 
-    const dropTaskorColumn = (event, toTasks, toColumnIndex) => {
+    const dropTaskorColumn = (event, toTasks, toColumnIndex, toTaskIndex) => {
       const type = event.dataTransfer.getData('type')
       if (type === 'task') {
-        dropTask(event, toTasks)
+        dropTask(event, toTasks, toTaskIndex !== undefined ? toTaskIndex : toTasks.length)
       } else {
         dropColumn(event, toColumnIndex)
       }
     }
 
-    const dropTask = (event, toTasks) => {
-      const taskIndex = event.dataTransfer.getData('task-index')
+    const dropTask = (event, toTasks, toTaskIndex) => {
+      const fromTaskIndex = event.dataTransfer.getData('from-task-index')
       const fromColumnIndex = event.dataTransfer.getData('from-column-index')
       const fromTasks = workspace.value.columns[fromColumnIndex].tasks
-      store.dispatch('moveTask', { taskIndex, fromTasks, toTasks }).then((response) => {
+      store.dispatch('moveTask', { fromTasks, fromTaskIndex, toTasks, toTaskIndex }).then((response) => {
         console.log('TASK DRAG & DROP DONE')
       })
     }

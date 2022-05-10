@@ -13,33 +13,15 @@
       {{ column.name }}
     </div>
 
-    <div class="list-reset">
-      <div
-        v-for="(task, $taskIndex) of column.tasks"
-        :key="$taskIndex"
-
-        @click="openTask(task)"
-
-        @dragstart="dragTask($event, $taskIndex, columnIndex)"
-        draggable="true"
-
-        @drop.stop="dropTaskorColumn($event, column.tasks, columnIndex, $taskIndex)"
-        @dragover.prevent
-        @dragenter.prevent
-
-        class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
-      >
-        <span class="w-full flex-no-shrink font-bold">
-          {{ task.name }}
-        </span>
-        <p
-          v-show="task.description"
-          class="w-full flex-no-shrink text-sm"
-        >
-          {{ task.description }}
-        </p>
-      </div>
-    </div>
+    <ColumnTasks
+      v-for="(task, $taskIndex) of column.tasks"
+      :key="$taskIndex"
+      :task-index="$taskIndex"
+      :column-index="columnIndex"
+      :workspace="workspace"
+      :column="column"
+      :task="task"
+    />
 
     <input
       type="text"
@@ -53,10 +35,14 @@
 
 <script>
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import ColumnTasks from '@/components/ColumnTasks.vue'
 
 export default {
   name: 'WorkSpaceColumn',
+
+  components: {
+    ColumnTasks,
+  },
 
   props: {
     workspace: {
@@ -75,7 +61,6 @@ export default {
 
   setup(props) {
     const store = useStore()
-    const router = useRouter()
 
     const dropTask = (event, toTasks, toTaskIndex) => {
       const fromTaskIndex = event.dataTransfer.getData('from-task-index')
@@ -110,22 +95,6 @@ export default {
       event.dataTransfer.setData('type', 'column')
     }
 
-    const openTask = (task) => {
-      router.push({
-        name: 'TaskView',
-        params: { id: task.id }
-      })
-    }
-
-    const dragTask = (event, taskIndex, fromColumnIndex) => {
-      event.dataTransfer.effectAllowed = 'move'
-      event.dataTransfer.dropEffect = 'move'
-
-      event.dataTransfer.setData('from-task-index', taskIndex)
-      event.dataTransfer.setData('from-column-index', fromColumnIndex)
-      event.dataTransfer.setData('type', 'task')
-    }
-
     const addTask = (event, tasks) => {
       if (event.target.value.trim() === '') return
 
@@ -139,8 +108,6 @@ export default {
       dropColumn,
       dropTaskorColumn,
       dragColumn,
-      openTask,
-      dragTask,
       addTask,
     }
   }
@@ -151,14 +118,6 @@ export default {
 .column {
   background: #398AB9;
   color: #EEEEEE;
-}
-
-.task {
-  background: #EEEEEE;
-  color: #525153;
-  cursor: pointer;
-  border-top: 6px solid #1c658c; /* TODO: add the border color according to task tag */
-  border-radius: 6px;
 }
 
 .add-task {

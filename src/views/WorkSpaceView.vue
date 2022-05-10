@@ -1,7 +1,7 @@
 <template>
   <div class="workspace bg-teal-dark h-full">
     <div class="flex p-4 flex-row items-start absolute">
-      <WorkSpaceColumn
+      <WorkSpaceColumns
         v-for="(column, $columnIndex) of workspace.columns"
         :key="$columnIndex"
         :workspace="workspace"
@@ -33,13 +33,13 @@
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import WorkSpaceColumn from '@/components/WorkSpaceColumn.vue'
+import WorkSpaceColumns from '@/components/WorkSpaceColumns.vue'
 
 export default {
   name: 'WorkSpaceView',
 
   components: {
-    WorkSpaceColumn,
+    WorkSpaceColumns,
   },
 
   setup() {

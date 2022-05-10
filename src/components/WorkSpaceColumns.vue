@@ -38,7 +38,7 @@ import { useStore } from 'vuex'
 import ColumnTasks from '@/components/ColumnTasks.vue'
 
 export default {
-  name: 'WorkSpaceColumn',
+  name: 'WorkSpaceColumns',
 
   components: {
     ColumnTasks,

@@ -29,26 +29,17 @@
 <script>
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import movingColumnsAndTasksMixin from '@/mixins/movingColumnsAndTasksMixin.js'
 
 export default {
   name: 'ColumnTask',
 
+  mixins: [movingColumnsAndTasksMixin],
+
   props: {
-    workspace: {
-      type: Object,
-      default: () => {}
-    },
-    column: {
-      type: Object,
-      default: () => {}
-    },
     task: {
       type: Object,
       default: () => {}
-    },
-    columnIndex: {
-      type: Number,
-      default: null
     },
     taskIndex: {
       type: Number,

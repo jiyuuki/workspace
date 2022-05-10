@@ -36,27 +36,15 @@
 <script>
 import { useStore } from 'vuex'
 import ColumnTasks from '@/components/ColumnTasks.vue'
+import movingColumnsAndTasksMixin from '@/mixins/movingColumnsAndTasksMixin.js'
 
 export default {
   name: 'WorkSpaceColumns',
 
+  mixins: [movingColumnsAndTasksMixin],
+
   components: {
     ColumnTasks,
-  },
-
-  props: {
-    workspace: {
-      type: Object,
-      default: () => {}
-    },
-    column: {
-      type: Object,
-      default: () => {}
-    },
-    columnIndex: {
-      type: Number,
-      default: null
-    }
   },
 
   setup(props) {

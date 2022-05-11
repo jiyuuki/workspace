@@ -23,6 +23,8 @@ export default {
 
   setup(props) {
     const onDrag = (event) => {
+      event.dataTransfer.effectAllowed = 'move'
+      event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('payload', JSON.stringify(props.dataTransfer))
     }
 

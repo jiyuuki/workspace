@@ -1,27 +1,31 @@
 <template>
   <div class="list-reset">
-    <div
-      @click="openTask(task)"
-
-      @dragstart="dragTask($event, taskIndex, columnIndex)"
-      draggable="true"
-
-      @drop.stop="dropTaskorColumn($event, column.tasks, columnIndex, taskIndex)"
-      @dragover.prevent
-      @dragenter.prevent
-
-      class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
+    <VueDrop
+      @drop="dropTaskorColumn"
     >
-      <span class="w-full flex-no-shrink font-bold">
-        {{ task.name }}
-      </span>
-      <p
-        v-show="task.description"
-        class="w-full flex-no-shrink text-sm"
+      <VueDrag
+        :data-transfer="{
+          type: 'task',
+          fromColumnIndex: columnIndex,
+          fromTaskIndex: taskIndex
+        }"
       >
-        {{ task.description }}
-      </p>
-    </div>
+        <div
+          @click="openTask(task)"
+          class="task flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline"
+        >
+          <span class="w-full flex-no-shrink font-bold">
+            {{ task.name }}
+          </span>
+          <p
+            v-show="task.description"
+            class="w-full flex-no-shrink text-sm"
+          >
+            {{ task.description }}
+          </p>
+        </div>
+      </VueDrag>
+    </VueDrop>
   </div>
 
 </template>
@@ -30,9 +34,16 @@
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import movingColumnsAndTasksMixin from '@/mixins/movingColumnsAndTasksMixin.js'
+import VueDrop from '@/components/VueDrop.vue'
+import VueDrag from '@/components/VueDrag.vue'
 
 export default {
   name: 'ColumnTask',
+
+  components: {
+    VueDrop,
+    VueDrag
+  },
 
   mixins: [movingColumnsAndTasksMixin],
 
@@ -58,43 +69,37 @@ export default {
       })
     }
 
-    const dragTask = (event, taskIndex, fromColumnIndex) => {
-      event.dataTransfer.effectAllowed = 'move'
-      event.dataTransfer.dropEffect = 'move'
-
-      event.dataTransfer.setData('from-task-index', taskIndex)
-      event.dataTransfer.setData('from-column-index', fromColumnIndex)
-      event.dataTransfer.setData('type', 'task')
-    }
-
-    const dropTask = (event, toTasks, toTaskIndex) => {
-      const fromTaskIndex = event.dataTransfer.getData('from-task-index')
-      const fromColumnIndex = event.dataTransfer.getData('from-column-index')
+    const dropTask = ({ fromColumnIndex, fromTaskIndex }) => {
       const fromTasks = props.workspace.columns[fromColumnIndex].tasks
-      store.dispatch('moveTask', { fromTasks, fromTaskIndex, toTasks, toTaskIndex }).then((response) => {
+      store.dispatch('moveTask', {
+        fromTasks,
+        fromTaskIndex,
+        toTasks: props.column.tasks,
+        toTaskIndex: props.taskIndex
+      }).then((response) => {
         console.log('TASK DRAG & DROP DONE')
       })
     }
 
-    const dropColumn = (event, toColumnIndex) => {
-      const fromColumnIndex = event.dataTransfer.getData('from-column-index')
-      store.dispatch('moveColumn', { fromColumnIndex, toColumnIndex }).then((response) => {
+    const dropColumn = ({ fromColumnIndex }) => {
+      store.dispatch('moveColumn', {
+        fromColumnIndex,
+        toColumnIndex: props.columnIndex
+      }).then((response) => {
         console.log('COLUMN DRAG & DROP DONE')
       })
     }
 
-    const dropTaskorColumn = (event, toTasks, toColumnIndex, toTaskIndex) => {
-      const type = event.dataTransfer.getData('type')
-      if (type === 'task') {
-        dropTask(event, toTasks, toTaskIndex !== undefined ? toTaskIndex : toTasks.length)
+    const dropTaskorColumn = (dataTransfer) => {
+      if (dataTransfer.type === 'task') {
+        dropTask(dataTransfer)
       } else {
-        dropColumn(event, toColumnIndex)
+        dropColumn(dataTransfer)
       }
     }
 
     return {
       openTask,
-      dragTask,
       dropTask,
       dropColumn,
       dropTaskorColumn,

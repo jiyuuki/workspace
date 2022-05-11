@@ -1,6 +1,7 @@
 <template>
   <div
-    @drop.self="onDrop($event)"
+    draggable="true"
+    @drop="onDrop($event)"
     @dragover.prevent
     @dragenter.prevent
   >
@@ -17,6 +18,7 @@ export default {
 
   setup(props, { emit }) {
     const onDrop = (event) => {
+      console.log({ event: JSON.parse(event.dataTransfer.getData('payload')) })
       const dataTransfer = JSON.parse(event.dataTransfer.getData('payload'))
       emit('drop', dataTransfer)
     }
@@ -28,6 +30,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style lang="css" scoped></style>

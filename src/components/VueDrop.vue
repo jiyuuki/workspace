@@ -1,7 +1,7 @@
 <template>
   <div
     draggable="true"
-    @drop="onDrop($event)"
+    @drop.stop="onDrop($event)"
     @dragover.prevent
     @dragenter.prevent
   >

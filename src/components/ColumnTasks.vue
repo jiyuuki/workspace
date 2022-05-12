@@ -1,7 +1,7 @@
 <template>
   <div class="list-reset">
     <VueDrop
-      @drop="dropTaskorColumn"
+      @drop="dropTaskOrColumn"
     >
       <VueDrag
         :data-transfer="{
@@ -90,7 +90,7 @@ export default {
       })
     }
 
-    const dropTaskorColumn = (dataTransfer) => {
+    const dropTaskOrColumn = (dataTransfer) => {
       if (dataTransfer.type === 'task') {
         dropTask(dataTransfer)
       } else {
@@ -102,7 +102,7 @@ export default {
       openTask,
       dropTask,
       dropColumn,
-      dropTaskorColumn,
+      dropTaskOrColumn,
     }
   }
 }

@@ -46,7 +46,6 @@ export default {
     })
 
     const updateTask = (event, key) => {
-      console.log({ event: event.target.value })
       store.dispatch('updateTask', { task: task.value, key, value: event.target.value })
     }
     return {

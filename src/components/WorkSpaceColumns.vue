@@ -1,6 +1,6 @@
 <template>
   <VueDrop
-    @drop="dropTaskorColumn"
+    @drop="dropTaskOrColumn"
   >
     <VueDrag
       :data-transfer="{
@@ -64,13 +64,25 @@ export default {
       })
     }
 
-    const dropTaskorColumn = (dataTransfer) => {
-      console.log({ dataTransfer })
-      if (dataTransfer.type === 'column') {
+    const dropTaskOrColumn = (dataTransfer) => {
+      if (dataTransfer.type === 'task') {
+        dropTask(dataTransfer)
+      } else {
         dropColumn(dataTransfer)
       }
     }
 
+    const dropTask = ({ fromColumnIndex, fromTaskIndex }) => {
+      const fromTasks = props.workspace.columns[fromColumnIndex].tasks
+      store.dispatch('moveTask', {
+        fromTasks,
+        fromTaskIndex: fromTaskIndex,
+        toTasks: props.column.tasks,
+        toTaskIndex: props.taskIndex
+      }).then((response) => {
+        console.log('TASK DRAG & DROP DONE')
+      })
+    }
     const addTask = (event, tasks) => {
       if (event.target.value.trim() === '') return
 
@@ -81,7 +93,7 @@ export default {
 
     return {
       dropColumn,
-      dropTaskorColumn,
+      dropTaskOrColumn,
       addTask,
     }
   }
